@@ -8,6 +8,7 @@ class NewSpotController extends GetxController {
   RxString spotName = ''.obs;
   RxString spotDescription = ''.obs;
   RxList spotProperties = [].obs;
+  RxList spotImages = [].obs;
 
   RxString countryName = ''.obs;
   RxString postalCode = ''.obs;
@@ -32,7 +33,8 @@ class NewSpotController extends GetxController {
             streetNumber: streetNumber.value),
         voteCounter: voteCounter.value,
         ratingSum: ratingSum.value,
-        finalRating: finalRating.value);
+        finalRating: finalRating.value,
+        spotImages: spotImages.value);
 
     await InitDataBase.instance.insert({
       InitDataBase.spotName: newSpot.spotName,
@@ -46,6 +48,7 @@ class NewSpotController extends GetxController {
       InitDataBase.voteCounter: newSpot.voteCounter,
       InitDataBase.ratingSum: newSpot.ratingSum,
       InitDataBase.finalRating: newSpot.finalRating,
+      InitDataBase.spotImages: newSpot.spotImages?.join(', '),
 
       // InitDataBase.spotLatitude: newSpot.geoPosition?.spotLatitude,
       // InitDataBase.spotLongitude: newSpot.geoPosition?.spotLongitude,

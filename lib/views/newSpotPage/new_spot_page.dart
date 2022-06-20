@@ -6,6 +6,7 @@ import 'package:multi_select_flutter/bottom_sheet/multi_select_bottom_sheet_fiel
 import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
 import 'package:multi_select_flutter/util/multi_select_list_type.dart';
+import 'package:skate_spots/image_picker.dart';
 import 'package:skate_spots/views/newSpotPage/controllers/new_spot_controller.dart';
 
 
@@ -242,8 +243,31 @@ class NewSpotPage extends StatelessWidget {
                   );
 
                 }, child: Text('Insert spot location')),
-                ElevatedButton(onPressed: (){
-                }, child: Text('Take a photo')),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                      onPressed: () {
+                        Get.defaultDialog(
+                          title: 'Choose option',
+                          content: Column(
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  ImagesFromCamera().imageFromGallery();
+                                },
+                                child: Text('From Gallery'),
+                              ),
+                              ElevatedButton(
+                                  onPressed: () {
+                                    ImagesFromCamera().imageFromCamera();
+                                  },
+                                  child: Text('Use camera'))
+                            ],
+                          ),
+                        );
+                      },
+                      child: Text('Add spot photos')),
+                ),
                 SizedBox(height: 100.0,),
                 ElevatedButton(onPressed: (){
 
@@ -259,6 +283,7 @@ class NewSpotPage extends StatelessWidget {
                     newSpotController.spotProperties.value = [];
                     newSpotController.spotName.value = '';
                     newSpotController.spotDescription.value = '';
+                    newSpotController.spotImages.value = [];
                     manualLocalization = {'country': '', 'city': '', 'postalCode': '', 'streetName': '', 'streetNumber': ''};
 
                   }else{

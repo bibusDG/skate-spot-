@@ -44,6 +44,8 @@ dependencies:
   galleryimage:
   flutter_rating_bar:
   image_picker:
+  shared_preferences:
+
 
 
 dev_dependencies:
