@@ -76,7 +76,7 @@ class MainPage extends StatelessWidget {
                             onTap: ()async{
                               List<Map<String, dynamic>> allData = await InitDataBase.instance.queryAll();
                               findPageController.listOfSpots.value = allData;
-                              print(allData);
+                              // print(allData);
                               Get.toNamed('/findSpot');
                             },
                               child: Text('Find spot ',

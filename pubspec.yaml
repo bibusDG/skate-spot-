@@ -37,6 +37,7 @@ dependencies:
   sqflite:
   path_provider:
   get:
+  get_storage:
   multi_select_flutter:
   geolocator:
   geocoding: ^2.0.4
@@ -45,7 +46,8 @@ dependencies:
   flutter_rating_bar:
   image_picker:
   shared_preferences:
-
+  toggle_switch:
+  sliding_switch:
 
 
 dev_dependencies:

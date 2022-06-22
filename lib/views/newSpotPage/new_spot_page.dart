@@ -247,33 +247,47 @@ class NewSpotPage extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                       onPressed: () {
-                        Get.defaultDialog(
-                          title: 'Choose option',
-                          content: Column(
-                            children: [
-                              ElevatedButton(
-                                onPressed: () {
-                                  ImagesFromCamera().imageFromGallery();
-                                },
-                                child: Text('From Gallery'),
-                              ),
-                              ElevatedButton(
-                                  onPressed: () {
-                                    ImagesFromCamera().imageFromCamera();
-                                  },
-                                  child: Text('Use camera'))
-                            ],
-                          ),
-                        );
+                        if (newSpotController.photoCounter.value < 1){
+
+                        }else {
+                          Get.defaultDialog(
+                            title: 'Use your camera',
+                            content: Column(
+                              children: [
+                                // ElevatedButton(
+                                //   onPressed: () {
+                                //     ImagesFromCamera().imageFromGallery();
+                                //   },
+                                //   child: Text('From Gallery'),
+                                // ),
+                                ElevatedButton(
+
+                                    onPressed: () {
+                                      ImagesFromCamera().imageFromCamera();
+                                      if (newSpotController.photoCounter.value == 1) {
+                                        Get.back();
+                                      }
+                                    },
+                                    child: Text('Take a photo')),
+                                SizedBox(height: 10.0,),
+                                Obx(() => Text('${newSpotController.photoCounter.value} photo left'))
+                              ],
+                            ),
+                          );
+                        }
                       },
                       child: Text('Add spot photos')),
                 ),
-                SizedBox(height: 100.0,),
+                SizedBox(height: 40.0,),
                 ElevatedButton(onPressed: (){
 
                   if(newSpotController.spotName.value != ''){
                     newSpotController.addSpot();
+                    newSpotController.addSliderPosition();
                     Get.snackbar('New spot', 'New spot successfully added');
+                    Get.toNamed('/');
+
+
 
                     newSpotController.countryName.value = '';
                     newSpotController.cityName.value = '';
@@ -284,6 +298,8 @@ class NewSpotPage extends StatelessWidget {
                     newSpotController.spotName.value = '';
                     newSpotController.spotDescription.value = '';
                     newSpotController.spotImages.value = [];
+                    newSpotController.ridersCounter.value = 0;
+                    newSpotController.photoCounter.value = 3;
                     manualLocalization = {'country': '', 'city': '', 'postalCode': '', 'streetName': '', 'streetNumber': ''};
 
                   }else{

@@ -1,10 +1,14 @@
 import 'package:get/get.dart';
 import 'package:skate_spots/models/skate_spot_model.dart';
+import 'package:skate_spots/views/findSpotPage/find_spot_page.dart';
 import '../../../dataBaseFiles/data_base_init.dart';
 import '../../../models/skate_spot_model.dart';
 import 'package:collection/collection.dart';
 
 class NewSpotController extends GetxController {
+
+  RxInt spotID = 1.obs;
+
   RxString spotName = ''.obs;
   RxString spotDescription = ''.obs;
   RxList spotProperties = [].obs;
@@ -18,7 +22,17 @@ class NewSpotController extends GetxController {
   RxInt voteCounter = 0.obs;
   RxInt ratingSum = 0.obs;
   RxInt finalRating = 0.obs;
+  RxInt ridersCounter = 0.obs;
+  RxInt photoCounter = 3.obs;
 
+
+  void addSliderPosition() async{
+
+    // sliderState.write(spotName.value, false);
+    sliderState.write(spotID.value.toString(), false);
+    spotID.value++;
+
+  }
 
   void addSpot() async {
     SpotModel newSpot = SpotModel(
@@ -34,7 +48,12 @@ class NewSpotController extends GetxController {
         voteCounter: voteCounter.value,
         ratingSum: ratingSum.value,
         finalRating: finalRating.value,
-        spotImages: spotImages.value);
+        spotImages: spotImages.value,
+        ridersCounter: ridersCounter.value,
+
+
+
+        );
 
     await InitDataBase.instance.insert({
       InitDataBase.spotName: newSpot.spotName,
@@ -49,6 +68,7 @@ class NewSpotController extends GetxController {
       InitDataBase.ratingSum: newSpot.ratingSum,
       InitDataBase.finalRating: newSpot.finalRating,
       InitDataBase.spotImages: newSpot.spotImages?.join(', '),
+      InitDataBase.ridersCounter: newSpot.ridersCounter,
 
       // InitDataBase.spotLatitude: newSpot.geoPosition?.spotLatitude,
       // InitDataBase.spotLongitude: newSpot.geoPosition?.spotLongitude,

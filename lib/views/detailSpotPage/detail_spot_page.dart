@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:galleryimage/galleryimage.dart';
@@ -20,14 +22,34 @@ class DetailSpotPage extends StatelessWidget {
     NewSpotController newSpotController = Get.find();
     DetailSpotController detailSpotController = Get.find();
 
+
+    // findPageController.listOfSpots[index]['Spot_images'].split(', ')[0] != '' ?
+    // Image.memory(base64Decode(findPageController.listOfSpots[index]['Spot_images'].split(', ')[0])) : Text('No image'),
+
+    // GalleryImage(imageUrls: ['https://quartersnacks.com/wp-content/uploads/2011/08/brickbanks.jpg',
+    // 'https://quartersnacks.com/wp-content/uploads/2011/08/bank1.jpg','https://quartersnacks.com/wp-content/uploads/2011/08/B.jpg'], numOfShowImages: 3,),
+
+
+
     return SafeArea(
       child: Scaffold(
         body:Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              Expanded(flex:1, child:GalleryImage(imageUrls: ['https://quartersnacks.com/wp-content/uploads/2011/08/brickbanks.jpg',
-              'https://quartersnacks.com/wp-content/uploads/2011/08/bank1.jpg','https://quartersnacks.com/wp-content/uploads/2011/08/B.jpg'], numOfShowImages: 3,)),
+              Expanded(flex:1,
+                child:PageView(
+                  controller: PageController(
+                    viewportFraction: 0.6,
+                  ),
+                  children: [
+                  for (var image in findPageController.listOfSpots[findPageController.spotIndex.value]['Spot_images'].split(', '))
+                    image != '' ? Image.memory(base64Decode(image)) : Center(child: Text('no image')),
+                    // Image.memory(base64Decode(image)),
+
+
+                ],),
+    ),
               Expanded(flex:2,
                 child: Column(
                   children: [
@@ -120,6 +142,7 @@ class DetailSpotPage extends StatelessWidget {
                         async{
                           int newVoteCounter = detailSpotController.voteCounter.value+1;
                           int newRatingSum = detailSpotController.ratingSum.value + detailSpotController.rating.value;
+
                           // print(findPageController.spotIndex.value);
                           // detailSpotController.voteCounter.value = findPageController.listOfSpots[findPageController.spotIndex.value]['Vote_counter'];
                           // detailSpotController.ratingSum.value = findPageController.listOfSpots[findPageController.spotIndex.value]['Rating_sum'];
@@ -131,13 +154,13 @@ class DetailSpotPage extends StatelessWidget {
                             InitDataBase.finalRating: newRatingSum/newVoteCounter,
 
                           });
-                          print(detailSpotController.voteCounter.value);
-                          print(detailSpotController.ratingSum.value);
+                          // print(detailSpotController.voteCounter.value);
+                          // print(detailSpotController.ratingSum.value);
                           // print(detailSpotController.calculateFinalRating());
                           // print(findPageController.listOfSpots[findPageController.spotIndex.value]['Rating_sum']);
                           // print(findPageController.listOfSpots[findPageController.spotIndex.value]['Final_rating']);
                           // print(findPageController.listOfSpots.value);
-                          Get.back();
+                          Get.toNamed('/');
                         },
                       );
                     }, child: Text('Rating votes'))

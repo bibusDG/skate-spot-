@@ -10,6 +10,10 @@ class SpotModel {
   int? voteCounter;
   int? ratingSum;
   int? finalRating;
+  int? ridersCounter;
+
+  int? spotCounter;
+  Map? spotSliderPosition;
 
 
   SpotModel({
@@ -22,6 +26,10 @@ class SpotModel {
     this.voteCounter,
     this.ratingSum,
     this.finalRating,
+    this.ridersCounter,
+
+    this.spotCounter,
+    this.spotSliderPosition,
 
   });
 
@@ -36,6 +44,9 @@ class SpotModel {
       'voteCounter': voteCounter,
       'ratingSum': ratingSum,
       'finalRating': finalRating,
+      'ridersCounter': ridersCounter,
+      'spotCounter': spotCounter,
+      'spotSliderPosition': spotSliderPosition,
 
 
     };

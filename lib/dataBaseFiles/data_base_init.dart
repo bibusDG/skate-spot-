@@ -25,6 +25,7 @@ class InitDataBase {
   static const ratingSum = 'Rating_sum';
   static const finalRating = 'Final_Rating';
   static const spotImages = 'Spot_images';
+  static const ridersCounter = 'Riders_counter';
 
 
 
@@ -58,7 +59,8 @@ class InitDataBase {
     $voteCounter INTEGER,
     $ratingSum INTEGER,
     $finalRating INTEGER, 
-    $spotImages TEXT)
+    $spotImages TEXT,
+    $ridersCounter INTEGER)
     '''
     );
   }
