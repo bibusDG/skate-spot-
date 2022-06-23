@@ -5,18 +5,13 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:async';
 import 'dart:io'as Io;
-import 'package:skate_spots/dataBaseFiles/data_base_init.dart';
-import 'package:skate_spots/models/skate_spot_model.dart';
 import 'package:skate_spots/views/findSpotPage/controllers/find_page_controller.dart';
 import 'package:skate_spots/views/newSpotPage/controllers/new_spot_controller.dart';
-
-
 
 class ImagesFromCamera {
 
   FindPageController findPageController = Get.find();
   NewSpotController newSpotController = Get.find();
-
 
   Future imageFromGallery() async {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -43,7 +38,7 @@ class ImagesFromCamera {
 
     newSpotController.spotImages.add(img64);
     newSpotController.photoCounter.value--;
-    print(newSpotController.spotImages.length);
+    // print(newSpotController.spotImages.length);
 
 
     // InitDataBase.instance.update({

@@ -1,13 +1,14 @@
 import 'package:get/get.dart';
 import 'package:skate_spots/models/skate_spot_model.dart';
-import 'package:skate_spots/views/findSpotPage/find_spot_page.dart';
+import 'package:skate_spots/views/findSpotPage/controllers/find_page_controller.dart';
 import '../../../dataBaseFiles/data_base_init.dart';
 import '../../../models/skate_spot_model.dart';
-import 'package:collection/collection.dart';
+
+
+FindPageController findPageController = Get.find();
 
 class NewSpotController extends GetxController {
 
-  RxInt spotID = 1.obs;
 
   RxString spotName = ''.obs;
   RxString spotDescription = ''.obs;
@@ -26,15 +27,26 @@ class NewSpotController extends GetxController {
   RxInt photoCounter = 3.obs;
 
 
-  void addSliderPosition() async{
+  void setValuesToStart () {
 
-    // sliderState.write(spotName.value, false);
-    sliderState.write(spotID.value.toString(), false);
-    spotID.value++;
+    countryName.value = '';
+    cityName.value = '';
+    postalCode.value = '';
+    streetName.value = '';
+    streetNumber.value = '';
+    spotProperties.value = [];
+    spotName.value = '';
+    spotDescription.value = '';
+    spotImages.value = [];
+    ridersCounter.value = 0;
+    photoCounter.value = 3;
 
   }
 
   void addSpot() async {
+
+
+
     SpotModel newSpot = SpotModel(
         spotName: spotName.value,
         spotDescription: spotDescription.value,

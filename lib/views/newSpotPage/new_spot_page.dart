@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:multi_select_flutter/bottom_sheet/multi_select_bottom_sheet_field.dart';
 import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
 import 'package:multi_select_flutter/util/multi_select_list_type.dart';
 import 'package:skate_spots/image_picker.dart';
+import 'package:skate_spots/views/findSpotPage/controllers/find_page_controller.dart';
 import 'package:skate_spots/views/newSpotPage/controllers/new_spot_controller.dart';
 
 
+import '../../dataBaseFiles/data_base_init.dart';
 import '../../geolocation.dart';
+import '../mainPage/main_page.dart';
+
+
 
 class NewSpotPage extends StatelessWidget {
   const NewSpotPage({Key? key}) : super(key: key);
@@ -19,6 +21,7 @@ class NewSpotPage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     NewSpotController newSpotController = Get.put(NewSpotController());
+    FindPageController findPageController = Get.find();
 
     /// LIST OF SPOT PROPERTIES
 
@@ -279,27 +282,32 @@ class NewSpotPage extends StatelessWidget {
                       child: Text('Add spot photos')),
                 ),
                 SizedBox(height: 40.0,),
-                ElevatedButton(onPressed: (){
+                ElevatedButton(onPressed: () async {
 
                   if(newSpotController.spotName.value != ''){
                     newSpotController.addSpot();
-                    newSpotController.addSliderPosition();
+
+                    List<Map<String, dynamic>> allData = await InitDataBase.instance.queryAll();
+                    findPageController.listOfSpots.value = allData;
+
+                    sliderState.write((allData.length).toString(), false);
+
                     Get.snackbar('New spot', 'New spot successfully added');
-                    Get.toNamed('/');
+                    Get.toNamed('/findSpot');
 
 
-
-                    newSpotController.countryName.value = '';
-                    newSpotController.cityName.value = '';
-                    newSpotController.postalCode.value = '';
-                    newSpotController.streetName.value = '';
-                    newSpotController.streetNumber.value = '';
-                    newSpotController.spotProperties.value = [];
-                    newSpotController.spotName.value = '';
-                    newSpotController.spotDescription.value = '';
-                    newSpotController.spotImages.value = [];
-                    newSpotController.ridersCounter.value = 0;
-                    newSpotController.photoCounter.value = 3;
+                    newSpotController.setValuesToStart();
+                    // newSpotController.countryName.value = '';
+                    // newSpotController.cityName.value = '';
+                    // newSpotController.postalCode.value = '';
+                    // newSpotController.streetName.value = '';
+                    // newSpotController.streetNumber.value = '';
+                    // newSpotController.spotProperties.value = [];
+                    // newSpotController.spotName.value = '';
+                    // newSpotController.spotDescription.value = '';
+                    // newSpotController.spotImages.value = [];
+                    // newSpotController.ridersCounter.value = 0;
+                    // newSpotController.photoCounter.value = 3;
                     manualLocalization = {'country': '', 'city': '', 'postalCode': '', 'streetName': '', 'streetNumber': ''};
 
                   }else{

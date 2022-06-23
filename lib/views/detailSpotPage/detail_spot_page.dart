@@ -1,12 +1,9 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:galleryimage/galleryimage.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:skate_spots/dataBaseFiles/data_base_init.dart';
-import 'package:skate_spots/models/skate_spot_model.dart';
 import 'package:skate_spots/views/detailSpotPage/controllers/detail_spot_controller.dart';
 import 'package:skate_spots/views/findSpotPage/controllers/find_page_controller.dart';
 import 'package:skate_spots/views/newSpotPage/controllers/new_spot_controller.dart';
@@ -160,7 +157,8 @@ class DetailSpotPage extends StatelessWidget {
                           // print(findPageController.listOfSpots[findPageController.spotIndex.value]['Rating_sum']);
                           // print(findPageController.listOfSpots[findPageController.spotIndex.value]['Final_rating']);
                           // print(findPageController.listOfSpots.value);
-                          Get.toNamed('/');
+                          findPageController.fetchAllData();
+                          Get.toNamed('/findSpot');
                         },
                       );
                     }, child: Text('Rating votes'))

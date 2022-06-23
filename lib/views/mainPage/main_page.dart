@@ -1,26 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:skate_spots/dataBaseFiles/data_base_init.dart';
-import 'package:skate_spots/models/skate_spot_model.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:skate_spots/views/newSpotPage/controllers/new_spot_controller.dart';
-
 import '../detailSpotPage/controllers/detail_spot_controller.dart';
 import '../findSpotPage/controllers/find_page_controller.dart';
+
+final sliderState = GetStorage();
 
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
 
     FindPageController findPageController = Get.put(FindPageController());
-    NewSpotController spotController = Get.put(NewSpotController());
+    NewSpotController newSpotController = Get.put(NewSpotController());
     DetailSpotController detailSpotController = Get.put(DetailSpotController());
+
 
     double Width = MediaQuery.of(context).size.width;
     double Height = MediaQuery.of(context).size.height;
+
+
+
 
     return
       SafeArea(
@@ -51,6 +56,9 @@ class MainPage extends StatelessWidget {
                           GestureDetector(
                             onTap: () async{
                               Get.toNamed('/newSpot');
+
+                              newSpotController.setValuesToStart();
+
                             // SpotModel newSpot = SpotModel(
                             //     spotName: 'Kwidzyn',
                             //     spotProperties: ['rails', 'banks', 'stairs'],
@@ -73,10 +81,12 @@ class MainPage extends StatelessWidget {
                         children: [
                           SizedBox(width: 60.0,),
                           GestureDetector(
-                            onTap: ()async{
-                              List<Map<String, dynamic>> allData = await InitDataBase.instance.queryAll();
-                              findPageController.listOfSpots.value = allData;
+                            onTap: (){
+                              findPageController.fetchAllData();
+                              // List<Map<String, dynamic>> allData = await InitDataBase.instance.queryAll();
+                              // findPageController.listOfSpots.value = allData;
                               // print(allData);
+                              // findPageController.listOfSpots.value = mainPageController.dbData;
                               Get.toNamed('/findSpot');
                             },
                               child: Text('Find spot ',

@@ -13,7 +13,7 @@ class RiderCounter {
   void addRider(index){
 
     newSpotController.ridersCounter.value = findPageController.listOfSpots[index]['Riders_counter'];
-    print(newSpotController.ridersCounter.value);
+    // print(newSpotController.ridersCounter.value);
 
     InitDataBase.instance.update({
       InitDataBase.spotID: index+1,

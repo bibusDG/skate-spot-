@@ -11,12 +11,13 @@ import 'package:skate_spots/views/newSpotPage/new_spot_page.dart';
 void main() async{
   GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
-  // InitDataBase newDataBase = InitDataBase();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+
+
 
   @override
   Widget build(BuildContext context) {
