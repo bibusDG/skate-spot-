@@ -23,6 +23,21 @@ class FindSpotPage extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          leadingWidth: double.maxFinite,
+          leading: Builder(builder: (BuildContext context){
+            return Row(
+              children: [
+                SizedBox(width: 15.0,),
+                GestureDetector(child: Icon(Icons.home_outlined), onTap: (){Get.toNamed('/');},),
+                SizedBox(width: 60,),
+                GestureDetector(child: Icon(Icons.add), onTap: (){Get.toNamed('/newSpot');},),
+              ],
+            );
+          }
+          ),
+        ),
         body: Obx(()=>ListView.builder(
             itemCount: findPageController.listOfSpots.length,
             itemBuilder: (BuildContext context, int index) {
@@ -42,7 +57,17 @@ class FindSpotPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               findPageController.listOfSpots[index]['Spot_images'].split(', ')[0] != '' ?
-                                Image.memory(base64Decode(findPageController.listOfSpots[index]['Spot_images'].split(', ')[0])) : Text('No image'),
+                                SizedBox(height: 130, child: Image.memory(base64Decode(findPageController.listOfSpots[index]['Spot_images'].split(', ')[0]))) :
+                                SizedBox(height:130.0,child: Icon(size: 40.0, Icons.no_photography_outlined)),
+                              // SizedBox(height: 10.0,),
+                              Row(
+                                  children: [
+                                    for (var i = 0; i < findPageController.listOfSpots[index]['Final_Rating']; i++)
+                                    Icon(size: 16.0,Icons.star, color: Colors.yellow,),
+                                    for (var i = 0; i < 5 - findPageController.listOfSpots[index]['Final_Rating']; i++)
+                                      Icon(size: 16.0,Icons.star_border, color: Colors.yellow,),
+                                  ],
+                                )
 
                               // Image.memory(base64Decode(findPageController.listOfSpots[index]['Spot_images'].split(', ')[0])),
                             ],
@@ -58,20 +83,40 @@ class FindSpotPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Text('Spot name : ${findPageController.listOfSpots[index]['Spot_name']}'),
-                            Text('City : ${findPageController.listOfSpots[index]['City_name']}'),
-                            Text('Street : ${findPageController.listOfSpots[index]['Street_name']}'),
                             Row(
                               children: [
-                                Text('Rating : '),
-                                for (var i = 0; i < findPageController.listOfSpots[index]['Final_Rating']; i++)
-                                  Icon(Icons.skateboarding)
+                                GestureDetector(child: Icon(Icons.short_text_sharp, color: Colors.teal,),),
+                                SizedBox(width: 10.0,),
+                                Text(findPageController.listOfSpots[index]['Spot_name']),
                               ],
                             ),
+                            Row(
+                              children: [
+                                Icon(Icons.location_city, color: Colors.teal,),
+                                SizedBox(width: 10.0,),
+                                Text(findPageController.listOfSpots[index]['City_name']),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Icon(Icons.edit_road, color: Colors.teal,),
+                                SizedBox(width: 10.0,),
+                                Text(findPageController.listOfSpots[index]['Street_name']),
+                              ],
+                            ),
+                            // Row(
+                            //   children: [
+                            //     Icon(Icons.bar_chart, color: Colors.teal,),
+                            //     SizedBox(width: 10.0,),
+                            //     for (var i = 0; i < findPageController.listOfSpots[index]['Final_Rating']; i++)
+                            //       Icon(Icons.skateboarding)
+                            //   ],
+                            // ),
 
                             Row(
                               children: [
-                                Text('Now riding : '),
+                                Icon(Icons.accessibility, color: Colors.teal,),
+                                SizedBox(width: 10.0,),
                                 // Text(findPageController.listOfSpots[index]['Riders_counter'].toString()),
                                 Obx(()=>Text(findPageController.listOfSpots.value[index]['Riders_counter'].toString()))
 

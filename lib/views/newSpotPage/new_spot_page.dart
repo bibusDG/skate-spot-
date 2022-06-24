@@ -34,6 +34,21 @@ class NewSpotPage extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          leadingWidth: double.maxFinite,
+          leading: Builder(builder: (BuildContext context){
+            return Row(
+              children: [
+                SizedBox(width: 15.0,),
+                GestureDetector(child: Icon(Icons.home_outlined), onTap: (){Get.toNamed('/');},),
+                SizedBox(width: 60,),
+                GestureDetector(child: Icon(Icons.list), onTap: (){Get.toNamed('/findSpot');},),
+              ],
+            );
+          }
+          ),
+        ),
         body:Container(
           child: SingleChildScrollView(
             child: Column(
@@ -96,7 +111,7 @@ class NewSpotPage extends StatelessWidget {
                 SizedBox(height: 30.0,),
                 ElevatedButton(onPressed: (){
                   Get.defaultDialog(
-                    title:'Take a shot',
+                    title:'Choose option',
                     content: Column(
                       children: [
                         ElevatedButton(onPressed: (){
@@ -111,7 +126,6 @@ class NewSpotPage extends StatelessWidget {
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: TextFormField(
-
                                         onChanged: (String value){
                                           manualLocalization['country'] = value;
                                           // newSpotController.countryName.value = value;
